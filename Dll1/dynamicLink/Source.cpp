@@ -7,7 +7,8 @@ int main() {
 
 	typedef void(__stdcall* userName)(const char* name);
 	typedef void(__stdcall* groupNumber)(int);
-
+	
+	// Добавил новое изменение
 	userName user_name;
 	groupNumber group_number;
 
