@@ -1,29 +1,50 @@
+//Файл описывает реализации методов базового класса------------------------------//
+//Переменные которые можно(нужно) использовать описаны в Base.h------------------//
 #include <iostream>
 #include "Base.h"
-#include <windows.h>
-
-
-Base::Base(WCHAR* file_path) {
-		// Указываем путь до файла, при инициализации класса
-		file = file_path;
-}
-
-HANDLE Base::getFileHandle() {
-	// Функция возвращает файловый дескриптор по указанному пути
-	HANDLE file_hadle = CreateFileW(
-		file,
-		GENERIC_READ,
-		FILE_SHARE_READ,
+//Пустые реализации виртуальных методов------------------------------------------//
+//-------------------------------------------------------------------------------//
+void Base::getClusterData( 
+	HANDLE file_handle,
+	unsigned int cluster_number,
+	BYTE* read_buffer) { }
+int Base::getClusterSize(HANDLE file_handle) { return 0; }
+//Реализация общего для ВСЕХ класов метода открытия диска------------------------//
+//-------------------------------------------------------------------------------//
+HANDLE Base::getFileHandle() 
+{
+	// Функция возвращает файловый дескриптор по указанному пути //
+	file_handle = CreateFileW(
+		path,
+		GENERIC_READ | GENERIC_WRITE,
+		FILE_SHARE_READ | FILE_SHARE_WRITE,
 		NULL,
 		OPEN_EXISTING,
-		FILE_ATTRIBUTE_NORMAL,
-		NULL
-	);
-
-	return file_hadle;
+		0,
+		NULL);
+	// Обработчик ошибок при открытии логического диска //
+	if (file_handle == INVALID_HANDLE_VALUE) 
+	{
+		std::cout << "Can't open file with error code: " << GetLastError() << '\n';
+		return file_handle;
+	}
+	else
+	{
+		return file_handle;
+	}
 };
-
-
-int main() {
-	return 0;
+//Реализация конструктора и деструктора класса-----------------------------------//
+//-------------------------------------------------------------------------------//
+Base::Base(WCHAR* file_path)
+{
+	// Указываем путь до файла, при инициализации класса //
+	path = file_path;
+	cluster_size = NULL;
+	file_handle = NULL;
 }
+Base::~Base()
+{
+
+}
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
