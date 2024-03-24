@@ -2,13 +2,6 @@
 //Переменные которые можно(нужно) использовать описаны в Base.h------------------//
 #include <iostream>
 #include "Base.h"
-//Пустые реализации виртуальных методов------------------------------------------//
-//-------------------------------------------------------------------------------//
-void Base::getClusterData( 
-	HANDLE file_handle,
-	unsigned int cluster_number,
-	BYTE* read_buffer) { }
-int Base::getClusterSize(HANDLE file_handle) { return 0; }
 //Реализация общего для ВСЕХ класов метода открытия диска------------------------//
 //-------------------------------------------------------------------------------//
 HANDLE Base::getFileHandle() 
@@ -39,6 +32,12 @@ Base::Base(WCHAR* file_path)
 {
 	// Указываем путь до файла, при инициализации класса //
 	path = file_path;
+	cluster_size = NULL;
+	file_handle = NULL;
+}
+Base::Base()
+{
+	path = NULL;
 	cluster_size = NULL;
 	file_handle = NULL;
 }
