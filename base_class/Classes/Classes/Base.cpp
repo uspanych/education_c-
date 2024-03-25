@@ -35,6 +35,12 @@ Base::Base(WCHAR* file_path)
 	cluster_size = NULL;
 	file_handle = NULL;
 }
+Base::Base()
+{
+	path = NULL;
+	cluster_size = NULL;
+	file_handle = NULL;
+}
 Base::~Base()
 {
 
