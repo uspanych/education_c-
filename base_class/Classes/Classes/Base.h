@@ -16,8 +16,8 @@ public:
 	virtual void getClusterData(
 		HANDLE file_handle,
 		unsigned int cluster_number,
-		BYTE* read_buffer);
-	virtual int getClusterSize(HANDLE file_handle);
+		BYTE* read_buffer) = 0;
+	virtual int getClusterSize(HANDLE file_handle) = 0;
 	HANDLE getFileHandle();
 //Прототипы конструктора и деструктора базового класса---------------------------//
 //-------------------------------------------------------------------------------//
