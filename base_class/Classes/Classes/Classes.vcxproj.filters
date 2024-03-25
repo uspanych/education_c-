@@ -18,10 +18,16 @@
     <ClCompile Include="Base.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="fat32.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h">
       <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="fat32.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
