@@ -35,10 +35,10 @@ void Fat16::getClusterData(
 	}
 
 	// Размер загрузочного сектора
-	int load_sector_size = buffer[14] * this->cluster_size;
+	int load_sector_size = buffer[14] * this->sector_size;
 
 	// Размер таблицы фат
-	int fat_table_size = buffer[22] * this->cluster_size;
+	int fat_table_size = buffer[22] * this->sector_size;
 
 	// Кол-во таблиц фат
 	int fat_table_count = buffer[16];
