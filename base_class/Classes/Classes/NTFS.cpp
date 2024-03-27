@@ -5,22 +5,21 @@
 #include <iostream>
 //Реализации виртуальных методов, описанных в базовом классе---------------------//
 //-------------------------------------------------------------------------------//
-int NTFS::getClusterSize(HANDLE file_handle) {
+int NTFS::getClusterSize() {
 	DWORD lowerCase = SetFilePointer(file_handle, 0, 0, FILE_BEGIN);
 	BYTE* read_buffer = new BYTE[sector_size];
 	bool k = ReadFile(file_handle, read_buffer, sector_size, NULL, NULL);
-	int cluster_X = read_buffer[13];
-	cluster_size = sector_size * cluster_X;
+	unsigned __int64 cluster_multiplier = ReadBytes(read_buffer, 13, 1);
+	cluster_size = sector_size * cluster_multiplier;
 	delete [] read_buffer;
 	return cluster_size;
 }
 void NTFS::getClusterData(
-	HANDLE file_handle,
 	unsigned int cluster_number,
 	BYTE* read_buffer) 
 {
 	unsigned __int64 startOffset = static_cast<unsigned long long>(cluster_number) * cluster_size;
-	LARGE_INTEGER sectorOffset;
+	LARGE_INTEGER sectorOffset{0};
 	sectorOffset.QuadPart = startOffset;
 
 	DWORD lowerCase = SetFilePointer(file_handle, sectorOffset.LowPart, &sectorOffset.HighPart, FILE_BEGIN);
@@ -30,9 +29,21 @@ void NTFS::getClusterData(
 //-------------------------------------------------------------------------------//
 NTFS::NTFS(WCHAR* file_path = NULL)
 {
-	path = file_path;
 	cluster_size = NULL;
-	file_handle = NULL;
+	file_handle = CreateFileW(
+		file_path,
+		GENERIC_READ | GENERIC_WRITE,
+		FILE_SHARE_READ | FILE_SHARE_WRITE,
+		NULL,
+		OPEN_EXISTING,
+		0,
+		NULL);
+	// Обработчик ошибок при открытии логического диска //
+	if (file_handle == INVALID_HANDLE_VALUE)
+	{
+		std::cout << "Can't open file with error code: " << GetLastError() << '\n';
+		file_handle = NULL;
+	}
 }
 NTFS::~NTFS()
 {

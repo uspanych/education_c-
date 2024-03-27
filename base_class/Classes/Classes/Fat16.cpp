@@ -3,7 +3,6 @@
 #include <typeinfo>
 
 void Fat16::getClusterData(
-	HANDLE file_handle,
 	unsigned int cluster_number,
 	BYTE* read_buffer
 )
@@ -86,9 +85,7 @@ void Fat16::getClusterData(
 
 }
 
-int Fat16::getClusterSize(
-	HANDLE file_handle
-)
+int Fat16::getClusterSize()
 {	
 	SetFilePointer(
 		file_handle,
@@ -107,7 +104,7 @@ int Fat16::getClusterSize(
 		);
 	
 	if (is_read) {
-		int sec_count = buffer[13];
+		unsigned __int64 sec_count = ReadBytes(buffer, 13, 1);
 
 		delete[] buffer;
 
@@ -119,32 +116,4 @@ int Fat16::getClusterSize(
 		return 1;
 	}	
 }
-
-
-int main() {
-	WCHAR _file_path[] = L"\\\\.\\E:";
-	WCHAR* file = _file_path;
-	Fat16 fs(file);
-
-	// Получаем файловый дескриптор
-	HANDLE file_handle = fs.getFileHandle();
-
-	// Получаем размер кластера
-	int cluster_size = fs.getClusterSize(file_handle);
-
-	// Определяем буффер для кластера
-	BYTE* buffer = new BYTE[cluster_size]{0};
-	
-
-	fs.getClusterData(
-		file_handle,
-		5,
-		buffer
-	);
-
-	std::cout << buffer;
-
-	return 0;
-}
-
 

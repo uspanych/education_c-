@@ -6,11 +6,10 @@ public:
 	Fat16(WCHAR* file_path) : Base(file_path) {};
 
 	void getClusterData(
-		HANDLE file_handle,
 		unsigned int cluster_number,
 		BYTE* read_buffer);
 
-	int getClusterSize(HANDLE file_handle);
+	int getClusterSize();
 
 	~Fat16() {};
 

@@ -9,9 +9,8 @@ class NTFS :
 public:
 //Прототипы переопределенных функций класса наседника----------------------------//
 //-------------------------------------------------------------------------------//
-    int getClusterSize(HANDLE file_handle);
-    void getClusterData(
-        HANDLE file_handle, 
+    int getClusterSize();
+    void getClusterData( 
         unsigned int cluster_number,
         BYTE* read_buffer);
 //Прототипы переопределенных функций класса наседника----------------------------//
