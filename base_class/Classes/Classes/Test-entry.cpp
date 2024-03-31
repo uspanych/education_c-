@@ -3,16 +3,18 @@
 #include "Fat16.h"
 #include "fat32.h"
 #include "NTFS.h"
+#include "FSCreator.h"
 #include "iostream"
 
 using namespace std;
 
-/*
+
 int main()
 {
 	WCHAR disk[] = L"\\\\.\\C:";
-	Base* fs = new NTFS(disk);
-	int CS = fs->getClusterSize();
-	cout << CS;
+	WCHAR* path = disk;
+	FSCreator* fabric = new FSCreator;
+	Base* fs = fabric->CreateFS(path);
+	std::cout << fs->getClusterSize();
+	
 }
-*/

@@ -132,6 +132,7 @@
     <ClCompile Include="EXT4.cpp" />
     <ClCompile Include="Fat16.cpp" />
     <ClCompile Include="fat32.cpp" />
+    <ClCompile Include="FSCreator.cpp" />
     <ClCompile Include="NTFS.cpp" />
     <ClCompile Include="Test-entry.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="EXT4.h" />
     <ClInclude Include="Fat16.h" />
     <ClInclude Include="fat32.h" />
+    <ClInclude Include="FSCreator.h" />
     <ClInclude Include="NTFS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

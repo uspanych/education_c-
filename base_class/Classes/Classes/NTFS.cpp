@@ -27,7 +27,7 @@ void NTFS::getClusterData(
 }
 //Реализация конструктора и деструктора класса-----------------------------------//
 //-------------------------------------------------------------------------------//
-NTFS::NTFS(WCHAR* file_path = NULL)
+NTFS::NTFS(WCHAR* file_path)
 {
 	cluster_size = NULL;
 	file_handle = CreateFileW(

@@ -25,6 +25,7 @@ public:
 		unsigned int cluster_number,
 		BYTE* read_buffer) = 0;
 	virtual int getClusterSize() = 0;
+	virtual ULONGLONG getClusterCount() = 0;
 
 //Прототипы конструктора и деструктора базового класса---------------------------//
 //-------------------------------------------------------------------------------//
