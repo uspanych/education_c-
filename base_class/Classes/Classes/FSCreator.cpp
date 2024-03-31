@@ -68,7 +68,7 @@ Base* FSCreator::CreateFS(WCHAR* FSpath)
 	{
 	case FStype::NTFS:
 		return new NTFS(FSpath);
-	case FStype::FAT16:
+	/*case FStype::FAT16:
 		return new Fat16(FSpath);
 	case FStype::FAT32:
 		return new FAT32(FSpath);
@@ -76,7 +76,7 @@ Base* FSCreator::CreateFS(WCHAR* FSpath)
 		return new EXT4(FSpath);
 	case FStype::None:
 		std::cout << "Couldn't detect filesystem\n";
-		return NULL;
+		return NULL;*/
 	}
 
 
