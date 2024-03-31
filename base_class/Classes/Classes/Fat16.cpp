@@ -8,7 +8,7 @@ void Fat16::getClusterData(
 )
 {
 	DWORD dwPtr  = SetFilePointer(
-		file_handle,
+		this->file_handle,
 		0,
 		0,
 		FILE_BEGIN
@@ -20,11 +20,12 @@ void Fat16::getClusterData(
 		DWORD dwError = GetLastError();
 	}
 
-	BYTE* buffer = new BYTE[sector_size];
+
+	BYTE* buffer = new BYTE[this->sector_size];
 	bool is_read = ReadFile(
-		file_handle,
+		this->file_handle,
 		buffer,
-		sector_size,
+		this->sector_size,
 		NULL,
 		NULL
 	);
@@ -33,20 +34,35 @@ void Fat16::getClusterData(
 		std::cout << "Can't read cluster data";
 	}
 
+	#pragma pack(push, 1) // это команда на запись структуры в памяти подряд
+	struct TestStruct
+	{
+		BYTE jump[14];
+		UINT16 boot_record_size;
+		BYTE fats_table_count;
+		UINT16 count_recrod_root;
+		BYTE jump2[3];
+		BYTE fat_table_size;
+	};
+	#pragma pack(pop)
+
+	TestStruct* boot_st;
+	boot_st = (TestStruct*)buffer;
+	
 	// Размер загрузочного сектора
-	int load_sector_size = buffer[14] * this->sector_size;
+	int load_sector_size = boot_st->boot_record_size * this->sector_size;
 
 	// Размер таблицы фат
-	int fat_table_size = buffer[22] * this->sector_size;
+	int fat_table_size = boot_st->fat_table_size * this->sector_size;
 
 	// Кол-во таблиц фат
-	int fat_table_count = buffer[16];
+	int fat_table_count = boot_st->fats_table_count;
 
 	// Таблицы фат
 	int fat_all_size = fat_table_size * fat_table_count;
 
 	// Количество записей в корневом каталоге
-	uint16_t count_root_record = uint16_t((buffer[18] << 8)) + uint16_t(buffer[17]);
+	uint16_t count_root_record = boot_st->count_recrod_root;
 	
 	// Размер корневого каталога
 	int size_root_directory = count_root_record * 32;
@@ -117,3 +133,23 @@ int Fat16::getClusterSize()
 	}	
 }
 
+int main(){
+	
+	WCHAR file_path[] = L"\\\\.\\E:";
+	WCHAR* file = file_path;
+	Fat16 fs(file_path);
+
+	fs.getClusterSize();
+
+	BYTE* cluster_data_buffer = new BYTE[fs.cluster_size];
+
+	fs.getClusterData(
+		5,
+		cluster_data_buffer
+	);
+
+	std::cout << cluster_data_buffer;
+
+
+	return 0;
+}

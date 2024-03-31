@@ -7,6 +7,7 @@
 
 using namespace std;
 
+/*
 int main()
 {
 	WCHAR disk[] = L"\\\\.\\C:";
@@ -14,3 +15,4 @@ int main()
 	int CS = fs->getClusterSize();
 	cout << CS;
 }
+*/
