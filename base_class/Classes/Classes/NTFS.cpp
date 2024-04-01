@@ -5,20 +5,30 @@
 #include <iostream>
 //Реализации виртуальных методов, описанных в базовом классе---------------------//
 //-------------------------------------------------------------------------------//
-int NTFS::getClusterSize() {
+int NTFS::getClusterInfo() {
 	DWORD lowerCase = SetFilePointer(file_handle, 0, 0, FILE_BEGIN);
 	BYTE* read_buffer = new BYTE[sector_size];
 	bool k = ReadFile(file_handle, read_buffer, sector_size, NULL, NULL);
-	unsigned __int64 cluster_multiplier = ReadBytes(read_buffer, 13, 1);
-	cluster_size = sector_size * cluster_multiplier;
-	delete [] read_buffer;
-	return cluster_size;
+#pragma pack(push,1)
+	struct BootRecord
+	{
+		BYTE jump[13];
+		UINT8 cluster_multiplier;
+		BYTE jump2[26];
+		UINT64 total_sectors;
+	};
+#pragma pack(pop)
+	BootRecord* parse = new BootRecord;
+	parse = (BootRecord*)read_buffer;
+	cluster_size = sector_size * parse->cluster_multiplier;
+	cluster_count = parse->total_sectors/parse->cluster_multiplier;
+	return 0;
 }
 void NTFS::getClusterData(
-	unsigned int cluster_number,
+	ULONGLONG cluster_number,
 	BYTE* read_buffer) 
 {
-	unsigned __int64 startOffset = static_cast<unsigned long long>(cluster_number) * cluster_size;
+	ULONGLONG startOffset = cluster_number * cluster_size;
 	LARGE_INTEGER sectorOffset{0};
 	sectorOffset.QuadPart = startOffset;
 
@@ -27,7 +37,7 @@ void NTFS::getClusterData(
 }
 //Реализация конструктора и деструктора класса-----------------------------------//
 //-------------------------------------------------------------------------------//
-NTFS::NTFS(WCHAR* file_path = NULL)
+NTFS::NTFS(WCHAR* file_path)
 {
 	cluster_size = NULL;
 	file_handle = CreateFileW(
@@ -44,6 +54,7 @@ NTFS::NTFS(WCHAR* file_path = NULL)
 		std::cout << "Can't open file with error code: " << GetLastError() << '\n';
 		file_handle = NULL;
 	}
+	this->getClusterInfo();
 }
 NTFS::~NTFS()
 {

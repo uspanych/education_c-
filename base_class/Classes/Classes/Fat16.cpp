@@ -132,24 +132,3 @@ int Fat16::getClusterSize()
 		return 1;
 	}	
 }
-
-int main(){
-	
-	WCHAR file_path[] = L"\\\\.\\E:";
-	WCHAR* file = file_path;
-	Fat16 fs(file_path);
-
-	fs.getClusterSize();
-
-	BYTE* cluster_data_buffer = new BYTE[fs.cluster_size];
-
-	fs.getClusterData(
-		5,
-		cluster_data_buffer
-	);
-
-	std::cout << cluster_data_buffer;
-
-
-	return 0;
-}
