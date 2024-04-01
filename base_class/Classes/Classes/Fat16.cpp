@@ -133,6 +133,7 @@ int Fat16::getClusterSize()
 	}	
 }
 
+/*
 int main(){
 	
 	WCHAR file_path[] = L"\\\\.\\E:";
@@ -153,3 +154,4 @@ int main(){
 
 	return 0;
 }
+*/
