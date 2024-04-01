@@ -11,12 +11,15 @@ using namespace std;
 
 int main()
 {
-	WCHAR disk[] = L"\\\\.\\C:";
+	WCHAR disk[] = L"\\\\.\\F:";
 	WCHAR* path = disk;
-	FSCreator* fabric = new FSCreator;
-	Base* fs = fabric->CreateFS(path);
+	Fabric* FsCreator = new Fabric;
+
+	FileSystemType1 FsType = FsCreator->DetectFileSystem(path);
 	
-	BYTE* buffer = new BYTE[fs->cluster_size]{0};
+	Base* FileSystem = FsCreator->CreateFileSystem(FsType, path);
+
+	BYTE* buffer = new BYTE[FileSystem->cluster_size]{0};
 	
 #pragma pack(push,1)
 	struct Cluster
@@ -24,17 +27,18 @@ int main()
 		UINT32 JPEG_s;
 	};
 #pragma pack(pop)
-	Cluster* jpeg_finder = new Cluster;
 
-	for(ULONGLONG i=0; i<1000; i++)
+	Cluster* JPEG_find = new Cluster;
+
+	for(ULONGLONG i=0; i<FileSystem->cluster_count; i++)
 	{
-		fs->getClusterData(i, buffer);
-		jpeg_finder = (Cluster*)buffer;
-		if (jpeg_finder->JPEG_s == 0xe0ffd8ff)
+		FileSystem->getClusterData(i, buffer);
+		JPEG_find = (Cluster*)buffer;
+		if (JPEG_find->JPEG_s == 0xe0ffd8ff)
 		{
 			std::cout << i << "\n";
 		}
 	}
-	delete jpeg_finder;
+	delete JPEG_find;
 	delete[] buffer;
 }

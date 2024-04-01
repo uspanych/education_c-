@@ -10,7 +10,6 @@ int EXT4::getClusterInfo() {
 	SetFilePointer(file_handle, 1024, 0, FILE_BEGIN);
 	BYTE* read_buffer = new BYTE[sector_size];
 	ReadFile(file_handle, read_buffer, sector_size, NULL, NULL);
-
 	//unsigned __int64 LB_power = ReadBytes(read_buffer, 24, 4);
 
 #pragma pack(push, 1)
@@ -28,7 +27,6 @@ int EXT4::getClusterInfo() {
 	this->cluster_count = A->block_count;
 	this->cluster_size = (int)pow(2, (10 + A->LB_power));
 
-	delete[] read_buffer;
 	delete A;
 	return 0;
 }
