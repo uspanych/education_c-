@@ -6,7 +6,7 @@
 #include <cmath>
 //Реализации виртуальных методов, описанных в базовом классе---------------------//
 //-------------------------------------------------------------------------------//
-int EXT4::getClusterSize() {
+int EXT4::getClusterInfo() {
 	SetFilePointer(file_handle, 1024, 0, FILE_BEGIN);
 	BYTE* read_buffer = new BYTE[sector_size];
 	ReadFile(file_handle, read_buffer, sector_size, NULL, NULL);
@@ -19,7 +19,7 @@ int EXT4::getClusterSize() {
 	return cluster_size;
 }
 void EXT4::getClusterData(
-	unsigned int cluster_number,
+	ULONGLONG cluster_number,
 	BYTE* read_buffer)
 {
 	unsigned __int64 startOffset = static_cast<unsigned long long>(cluster_number) * cluster_size;

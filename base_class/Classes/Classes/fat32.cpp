@@ -25,7 +25,7 @@ FAT32::~FAT32()
 
 };
 
-int FAT32::getClusterSize()
+int FAT32::getClusterInfo()
 {
 	BYTE* read_buffer = new BYTE[sector_size];
 	SetFilePointer(file_handle, 0, 0, FILE_BEGIN);
@@ -37,7 +37,7 @@ int FAT32::getClusterSize()
 }
 
 void FAT32::getClusterData(
-	unsigned int cluster_number,
+	ULONGLONG cluster_number,
 	BYTE* read_buffer)
 {
 	unsigned __int64 size_reserve_section;

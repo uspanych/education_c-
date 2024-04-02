@@ -113,12 +113,20 @@ FsFactory::~FsFactory()
 }
 
 
+
+/*
 int main() {
 
 	WCHAR file_path[] = L"\\\\.\\E:";
 	WCHAR* file = file_path;
 	FsFactory fs(file);
 	Base* file_system = fs.getFileSystem();
-	std::cout << file_system->getClusterSize();
+	file_system->getClusterInfo();
+	BYTE* buffer = new BYTE[32768];
+	file_system->getClusterData(5, buffer);
+	//for (int i; i <= file_system->cluster_count; i++) {
+		// тут читаем все кластеры по порядку
+	//}
 	return 0;
 }
+*/

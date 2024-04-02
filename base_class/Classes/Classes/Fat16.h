@@ -5,11 +5,13 @@ class Fat16 : public Base {
 public:
 	Fat16(WCHAR* file_path) : Base(file_path) {};
 
+	int cluster_offset;
+
 	void getClusterData(
-		unsigned int cluster_number,
+		ULONGLONG cluster_number,
 		BYTE* read_buffer);
 
-	int getClusterSize();
+	int getClusterInfo();
 
 	~Fat16() {};
 
