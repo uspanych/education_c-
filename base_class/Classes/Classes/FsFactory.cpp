@@ -1,3 +1,4 @@
+//uspanov r.b.
 #include "FsFactory.h"
 
 
@@ -37,7 +38,7 @@ FileSystems FsFactory::detectFileSystem() {
 	FileSystems filesystem;
 	BYTE* buffer = new BYTE[2048];
 	this->writeBufferData(buffer);
-	#pragma pack(push, 1) // это команда на запись структуры в памяти подряд
+	#pragma pack(push, 1) // ГЅГІГ® ГЄГ®Г¬Г Г­Г¤Г  Г­Г  Г§Г ГЇГЁГ±Гј Г±ГІГ°ГіГЄГІГіГ°Г» Гў ГЇГ Г¬ГїГІГЁ ГЇГ®Г¤Г°ГїГ¤
 	struct Signature
 	{
 		BYTE jump[3];
@@ -98,7 +99,7 @@ FsFactory::FsFactory(WCHAR* file_path)
 		OPEN_EXISTING,
 		0,
 		NULL);
-	// Обработчик ошибок при открытии логического диска //
+	// ГЋГЎГ°Г ГЎГ®ГІГ·ГЁГЄ Г®ГёГЁГЎГ®ГЄ ГЇГ°ГЁ Г®ГІГЄГ°Г»ГІГЁГЁ Г«Г®ГЈГЁГ·ГҐГ±ГЄГ®ГЈГ® Г¤ГЁГ±ГЄГ  //
 	if (this->file_handle == INVALID_HANDLE_VALUE)
 	{
 		std::cout << "Can't open file with error code: " << GetLastError() << '\n';
@@ -125,7 +126,7 @@ int main() {
 	BYTE* buffer = new BYTE[32768];
 	file_system->getClusterData(5, buffer);
 	//for (int i; i <= file_system->cluster_count; i++) {
-		// тут читаем все кластеры по порядку
+		// ГІГіГІ Г·ГЁГІГ ГҐГ¬ ГўГ±ГҐ ГЄГ«Г Г±ГІГҐГ°Г» ГЇГ® ГЇГ®Г°ГїГ¤ГЄГі
 	//}
 	return 0;
 }
