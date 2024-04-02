@@ -3,7 +3,7 @@
 #include <typeinfo>
 
 void Fat16::getClusterData(
-	unsigned int cluster_number,
+	ULONGLONG cluster_number,
 	BYTE* read_buffer
 )
 {
@@ -48,7 +48,7 @@ void Fat16::getClusterData(
 
 	TestStruct* boot_st;
 	boot_st = (TestStruct*)buffer;
-	
+
 	// Размер загрузочного сектора
 	int load_sector_size = boot_st->boot_record_size * this->sector_size;
 
@@ -57,6 +57,8 @@ void Fat16::getClusterData(
 
 	// Кол-во таблиц фат
 	int fat_table_count = boot_st->fats_table_count;
+
+	std::cout << fat_table_count;
 
 	// Таблицы фат
 	int fat_all_size = fat_table_size * fat_table_count;
@@ -69,7 +71,8 @@ void Fat16::getClusterData(
 
 	// Смещение первого кластера
 	int cluster_offset_start = load_sector_size + fat_all_size + size_root_directory;
-	
+	this->cluster_offset = cluster_offset_start;
+
 	// Смещение нужного кластера
 	cluster_offset_start += this->cluster_size * (cluster_number - 2);
 
@@ -101,7 +104,7 @@ void Fat16::getClusterData(
 
 }
 
-int Fat16::getClusterSize()
+int Fat16::getClusterInfo()
 {	
 	SetFilePointer(
 		file_handle,
@@ -118,6 +121,19 @@ int Fat16::getClusterSize()
 		NULL,
 		NULL
 		);
+
+	#pragma pack(push,1)
+	struct BootRecord
+	{
+		BYTE jump[32];
+		UINT32 sectors_count;;
+	};
+	#pragma pack(pop)
+
+	BootRecord* boot_st;
+	boot_st = (BootRecord*)buffer;
+	
+	int tom_size = boot_st->sectors_count * 512;
 	
 	if (is_read) {
 		unsigned __int64 sec_count = ReadBytes(buffer, 13, 1);
@@ -125,10 +141,16 @@ int Fat16::getClusterSize()
 		delete[] buffer;
 
 		this->cluster_size = sec_count * sector_size;
-		return cluster_size;
 	}
 	else {
 		std::cout << "Can't read file";
 		return 1;
-	}	
+	}
+
+
+
+	this->cluster_count = (tom_size - this->cluster_offset) / this->cluster_size;
+	
+	return this->cluster_size;
+
 }

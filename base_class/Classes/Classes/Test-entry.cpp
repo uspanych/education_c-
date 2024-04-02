@@ -8,7 +8,7 @@
 
 using namespace std;
 
-
+/*
 int main()
 {
 	WCHAR disk[] = L"\\\\.\\C:";
@@ -38,3 +38,4 @@ int main()
 	delete jpeg_finder;
 	delete[] buffer;
 }
+*/
