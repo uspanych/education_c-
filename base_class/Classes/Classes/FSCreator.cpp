@@ -12,7 +12,7 @@ FStype FSCreator::DetectFS(BYTE* buffer)
 	{
 		BYTE jump[3];
 		UINT32 NTFS_s;
-		BYTE jump2[16];
+		BYTE jump2[15];
 		UINT16 fat_changer;
 		BYTE jump3[486];
 		UINT16 fat_s;
@@ -68,10 +68,11 @@ Base* FSCreator::CreateFS(WCHAR* FSpath)
 	{
 	case FStype::NTFS:
 		return new NTFS(FSpath);
-	/*case FStype::FAT16:
-		return new Fat16(FSpath);
 	case FStype::FAT32:
 		return new FAT32(FSpath);
+	/*case FStype::FAT16:
+		return new Fat16(FSpath);
+	
 	case FStype::EXT4:
 		return new EXT4(FSpath);
 	case FStype::None:

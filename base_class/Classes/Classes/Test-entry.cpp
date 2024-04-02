@@ -11,13 +11,13 @@ using namespace std;
 
 int main()
 {
-	WCHAR disk[] = L"\\\\.\\C:";
+	WCHAR disk[] = L"\\\\.\\E:";
 	WCHAR* path = disk;
 	FSCreator* fabric = new FSCreator;
 	Base* fs = fabric->CreateFS(path);
 	
 	BYTE* buffer = new BYTE[fs->cluster_size]{0};
-	
+/*
 #pragma pack(push,1)
 	struct Cluster
 	{
@@ -37,4 +37,5 @@ int main()
 	}
 	delete jpeg_finder;
 	delete[] buffer;
+*/
 }
