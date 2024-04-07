@@ -10,6 +10,15 @@ public:
 	ULONGLONG cluster_number;
 };
 
+template<class Type>
+class Iterator {
+public:
+	virtual void First() = 0;
+	virtual void Next() = 0;
+	virtual bool IsDone() const = 0;
+	virtual BYTE* GetCurrent() const = 0;
+};
+
 class ClusterContainer {
 protected:
 	ULONGLONG cluster_count;
@@ -20,15 +29,6 @@ public:
 	void Add(Cluster &newItem);
 	ULONGLONG GetCount() const;
 	Cluster GetByIndex(ULONGLONG index);
-};
-
-template<class Type>
-class Iterator {	
-public:
-	virtual void First() = 0;
-	virtual void Next() = 0;
-	virtual bool IsDone() const = 0;
-	virtual BYTE* GetCurrent() const = 0;
 };
 
 class ClusterIterator: public Iterator<Cluster> {
