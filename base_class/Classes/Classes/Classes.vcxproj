@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +135,7 @@
     <ClCompile Include="fat32.cpp" />
     <ClCompile Include="FSCreator.cpp" />
     <ClCompile Include="FsFactory.cpp" />
+    <ClCompile Include="MyIterator.cpp" />
     <ClCompile Include="NTFS.cpp" />
     <ClCompile Include="Test-entry.cpp" />
   </ItemGroup>
@@ -144,6 +146,7 @@
     <ClInclude Include="fat32.h" />
     <ClInclude Include="FSCreator.h" />
     <ClInclude Include="FsFactory.h" />
+    <ClInclude Include="MyIterator.h" />
     <ClInclude Include="NTFS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -39,6 +39,9 @@
     <ClCompile Include="FsFactory.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MyIterator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fat16.h">
@@ -60,6 +63,9 @@
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="FsFactory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MyIterator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
