@@ -5,9 +5,10 @@
 #include "NTFS.h"
 #include "FSCreator.h"
 #include "iostream"
-//#include "MyIterator.h"
+#include "MyIterator.h"
 
 using namespace std;
+
 
 /*
 int main()
@@ -41,26 +42,21 @@ int main()
 }
 */
 
-/*
+
 int main() {
 	WCHAR disk[] = L"\\\\.\\E:";
 	WCHAR* path = disk;
-	Cluster cluster_1(path, 1);
-	Cluster cluster_2(path, 2);
 	Cluster cluster_5(path, 5);
 
 	ClusterContainer cs_container;
-	cs_container.Add(cluster_1);
-	cs_container.Add(cluster_2);
 	cs_container.Add(cluster_5);
 
 	Iterator <Cluster>* iterator = cs_container.GetIterator();
 
 	for (iterator->First(); !iterator->IsDone(); iterator->Next()) {
 		BYTE* buffer = iterator->GetCurrent();
+		std::cout << buffer;
 	}
-
 
 	return 0;
 }
-*/

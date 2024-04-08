@@ -59,9 +59,3 @@ BYTE* ClusterIterator::GetCurrent() const {
 Iterator<Cluster>* ClusterContainer::GetIterator() {
 	return new ClusterIterator(Items, cluster_count);
 }
-
-
-
-int main() {
-	return 0;
-}

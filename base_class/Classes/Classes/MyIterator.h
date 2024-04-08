@@ -10,18 +10,6 @@ public:
 	ULONGLONG cluster_number;
 };
 
-class ClusterContainer {
-protected:
-	ULONGLONG cluster_count;
-	Cluster* Items;
-public:
-	ClusterContainer();
-	Iterator<Cluster>* GetIterator();
-	void Add(Cluster &newItem);
-	ULONGLONG GetCount() const;
-	Cluster GetByIndex(ULONGLONG index);
-};
-
 template<class Type>
 class Iterator {	
 public:
@@ -44,3 +32,14 @@ public:
 	BYTE* GetCurrent() const;
 };
 
+class ClusterContainer {
+protected:
+	ULONGLONG cluster_count;
+	Cluster* Items;
+public:
+	ClusterContainer();
+	Iterator<Cluster>* GetIterator();
+	void Add(Cluster& newItem);
+	ULONGLONG GetCount() const;
+	Cluster GetByIndex(ULONGLONG index);
+};
