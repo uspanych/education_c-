@@ -45,6 +45,7 @@ class ClusterContainer {
 protected:
 	UINT64 cluster_count;
 	Cluster* Items;
+
 public:
 	ClusterContainer();
 	Iterator<Cluster>* GetIterator();

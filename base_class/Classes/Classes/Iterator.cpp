@@ -10,20 +10,21 @@ Cluster::Cluster(WCHAR* file_path, UINT64 cluster_number) {
 }
 
 ClusterContainer::ClusterContainer() {
-	this->cluster_count = 0;
-	this->Items = new Cluster[1000];
+	cluster_count = 0;
+	Items = new Cluster[120];
 }
 
 Iterator<Cluster>* ClusterContainer::GetIterator() {
-	return new ClusterContainerIterator(this->Items, this->cluster_count);
+	return new ClusterContainerIterator(Items, cluster_count);
 }
 
 void ClusterContainer::AddItem(const Cluster& newItem) {
-	this->Items[this->cluster_count++] = newItem;
+	Items[cluster_count] = newItem;
+	cluster_count++;
 }
 
 UINT64 ClusterContainer::GetCount() const {
-	return this->cluster_count;
+	return cluster_count;
 }
 
 
@@ -40,6 +41,7 @@ BYTE* ClusterContainerIterator::GetCurrent() const {
 int main() {
 	WCHAR path[] = L"\\\\.\\E:";
 	WCHAR* p_path = path;
+
 	Cluster cluster_num(p_path, 6);
 
 	ClusterContainer myContainer;
