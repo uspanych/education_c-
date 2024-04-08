@@ -36,12 +36,12 @@
     <ClCompile Include="FSCreator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Iterator_Tyazhelnikov.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fat16.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="EXT4.h">
@@ -54,7 +54,13 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="FSCreator.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Cluster_class.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
