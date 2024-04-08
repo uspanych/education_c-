@@ -59,12 +59,10 @@ Base* FSCreator::CreateFS(WCHAR* FSpath)
 	BYTE* buffer = new BYTE[2048];
 	DWORD pointerstatus = SetFilePointer(handle, 0, 0, FILE_BEGIN);
 	BOOL readstatus = ReadFile(handle, buffer, 2048, NULL, NULL);
-	
-	FStype filesystem = DetectFS(buffer);
 
 	CloseHandle(handle);
 	
-	switch (filesystem)
+	switch (DetectFS(buffer))
 	{
 	case FStype::NTFS:
 		return new NTFS(FSpath);
