@@ -43,13 +43,17 @@ int main()
 	{
 		myContainer.AddItem(Cluster(i, path));
 	}
+	myContainer.AddItem(Cluster(34304, path));
+	myContainer.AddItem(Cluster(34316, path));
 
 	Iterator<Cluster>* it = myContainer.GetIterator();
-	BYTE* buffer = new BYTE[4096];
-	for (it->First(); !it->IsDone(); it->Next())
+	IteratorDecorator<Cluster> dec_It(it);
+	for (dec_It.First(); !dec_It.IsDone(); dec_It.Next())
 	{
-		Cluster currentObject = it->GetCurrent(buffer);
+
+		cout << "I found png \n";
 	}
-	delete[] buffer;
 	return 0;
+
+	
 }
