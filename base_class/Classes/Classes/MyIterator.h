@@ -21,10 +21,10 @@ public:
 
 class ClusterIterator: public Iterator<Cluster> {
 protected:
-	ULONGLONG Pos;
 	ULONGLONG Count;
 	Cluster* itItems;
 public:
+	ULONGLONG Pos;
 	ClusterIterator(Cluster* containerItems, ULONGLONG obj_count);
 	void First();
 	void Next();

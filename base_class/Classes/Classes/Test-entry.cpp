@@ -5,7 +5,7 @@
 #include "NTFS.h"
 #include "FSCreator.h"
 #include "iostream"
-#include "MyIterator.h"
+#include "MyDecorator.h"
 
 using namespace std;
 
@@ -47,15 +47,20 @@ int main() {
 	WCHAR disk[] = L"\\\\.\\E:";
 	WCHAR* path = disk;
 	Cluster cluster_5(path, 5);
+	Cluster cluster_7(path, 7);
+	Cluster cluster_25(path, 25);
 
 	ClusterContainer cs_container;
 	cs_container.Add(cluster_5);
+	cs_container.Add(cluster_7);
+	cs_container.Add(cluster_25);
 
 	Iterator <Cluster>* iterator = cs_container.GetIterator();
 
-	for (iterator->First(); !iterator->IsDone(); iterator->Next()) {
-		BYTE* buffer = iterator->GetCurrent();
-		std::cout << buffer;
+	IteratorDecorator<Cluster>* sample_decorator = new SampleDecoratorPDF(iterator);
+
+	for (sample_decorator->First(); !sample_decorator->IsDone(); sample_decorator->Next()) {
+		std::cout << iterator->Pos;
 	}
 
 	return 0;

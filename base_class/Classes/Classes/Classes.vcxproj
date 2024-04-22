@@ -146,6 +146,7 @@
     <ClInclude Include="fat32.h" />
     <ClInclude Include="FSCreator.h" />
     <ClInclude Include="FsFactory.h" />
+    <ClInclude Include="MyDecorator.h" />
     <ClInclude Include="MyIterator.h" />
     <ClInclude Include="NTFS.h" />
   </ItemGroup>
