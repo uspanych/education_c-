@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Decorator.h" />
     <ClInclude Include="EXT4.h" />
     <ClInclude Include="Fat16.h" />
     <ClInclude Include="fat32.h" />

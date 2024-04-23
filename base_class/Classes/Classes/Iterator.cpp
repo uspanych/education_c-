@@ -42,7 +42,7 @@ int main() {
 	WCHAR path[] = L"\\\\.\\E:";
 	WCHAR* p_path = path;
 
-	Cluster cluster_num(p_path, 6);
+	Cluster cluster_num(p_path, 5);
 
 	ClusterContainer myContainer;
 	myContainer.AddItem(cluster_num);
