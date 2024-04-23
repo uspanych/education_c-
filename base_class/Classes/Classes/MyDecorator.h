@@ -43,7 +43,7 @@ public:
 			buffer_bytes = It->GetCurrent();
 			check = (pdfCheck*)buffer_bytes;
 			It->Next();
-		} while (!It->IsDone() && check->pdf_bytes == 0x25504446 && check->pdf_bytes_2 == 0x2d);
+		} while (!It->IsDone() && check->pdf_bytes != 0x25504446 && check->pdf_bytes_2 != 0x2d);
 
 		delete check;
 		
